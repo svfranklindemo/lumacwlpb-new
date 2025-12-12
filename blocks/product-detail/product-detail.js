@@ -25,10 +25,11 @@ async function fetchProductDetail(path, sku, isAuthor) {
       console.error("Product Detail: Missing path or SKU");
       return null;
     }
+   const skuItem = isAuthor ? `;sku=${sku}` : `&sku=${sku}`;
     const baseUrl = isAuthor
-      ? "https://author-p168578-e1802821.adobeaemcloud.com/graphql/execute.json/luma3/getProductsByPathAndSKU"
-      : "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/lumaProductsGrapghQlByPathAndSku";
-    const url = `${baseUrl}?_path=${path}&sku=${sku}`;
+      ? "https://author-p165802-e1765367.adobeaemcloud.com/graphql/execute.json/luma3/getProductsByPathAndSKU;"
+      : "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/lumaProductsGrapghQlByPathAndSku?";
+    const url = `${baseUrl}_path=${path}${skuItem}`;
     const resp = await fetch(url, {
       method: "GET",
       headers: {
@@ -57,11 +58,10 @@ async function fetchAllProducts(path, isAuthor) {
     if (!path) {
       return [];
     }
-    const baseUrl = isAuthor
-      ? "https://author-p168578-e1802821.adobeaemcloud.com"
-      : "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/lumaProductsGraphQl";
-    // Use the same query as category-products-lister which we know works
-    const url = `${baseUrl}/graphql/execute.json/luma3/menproductspagelister?_path=${path}`;
+        const baseUrl = isAuthor
+      ? "https://author-p165802-e1765367.adobeaemcloud.com/graphql/execute.json/luma3/menproductspagelister;"
+      : "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/lumaProductsGraphQl?";
+    const url = `${baseUrl}_path=${path}`;
     const resp = await fetch(url, {
       method: "GET",
       headers: {
