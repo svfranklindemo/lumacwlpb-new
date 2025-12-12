@@ -76,15 +76,15 @@ async function fetchProducts(path) {
     if (!path) return [];
 
     const baseUrl = isAuthorEnvironment()
-      ? "https://author-p168578-e1802821.adobeaemcloud.com/graphql/execute.json/luma3/menproductspagelister"
-      : "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/lumaProductsGraphQl";
-    const url = `${baseUrl}?_path=${path}`;
-    // For AEM parameterized queries, use semicolon s
+    ? "https://author-p165802-e1765367.adobeaemcloud.com/graphql/execute.json/luma3/menproductspagelister;"
+    : "https://275323-918sangriatortoise.adobeioruntime.net/api/v1/web/dx-excshell-1/lumaProductsGraphQl?";
+  const url = `${baseUrl}_path=${path}`;
+
     const resp = await fetch(url, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        Pragma: "no-cache",
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        Pragma: 'no-cache',
       },
     });
     const json = await resp.json();
